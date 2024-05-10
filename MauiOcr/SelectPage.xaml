@@ -25,18 +25,19 @@
             HeightRequest="200"
             />
     </VerticalStackLayout>-->
-         <ContentPage.BindingContext>
-            <local:SelectViewModel />
-        </ContentPage.BindingContext>
         <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <OnPlatform x:TypeArguments="View">
             </OnPlatform>
-            <cv:CameraView x:Name="cameraView" WidthRequest="{OnPlatform 1280, Android=720}" 
+            <!--<cv:CameraView x:Name="cameraView2" WidthRequest="{OnPlatform 1280, Android=720}" 
                     HeightRequest="{OnPlatform 720, Android=1280}"
-                    CamerasLoaded="CameraView_CamerasLoaded"
                     AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                     AbsoluteLayout.LayoutFlags="All"
                     Margin="5"
+                           />-->
+            <cv:CameraView x:Name="cameraView" WidthRequest="{OnPlatform 1280, Android=720}" 
+                    HeightRequest="{OnPlatform 720, Android=1280}"
+                    Cameras="{Binding Cameras, Mode=OneWayToSource}" Camera="{Binding Camera}" AutoStartPreview="{Binding AutoStartPreview}" NumCamerasDetected="{Binding NumCameras, Mode=OneWayToSource}"
+                    AutoSnapShotAsImageSource="True" AutoSnapShotFormat="PNG" TakeAutoSnapShot="{Binding TakeSnapshot}" AutoSnapShotSeconds="{Binding SnapshotSeconds}"
                            />
 
             <BoxView AbsoluteLayout.LayoutBounds="0, 0, 0.5, 0.5"
@@ -48,9 +49,9 @@
             <Button
                 x:Name="Picture"
                 Text="Zrób zdjecie" 
-                Clicked="PictureTaken"
                 HeightRequest="50"
                 WidthRequest="100"
+                Command="{Binding ExecuteTakeSnapshotCommand}"
                 AbsoluteLayout.LayoutBounds="0.5, 0.9, 1, 1"
                 AbsoluteLayout.LayoutFlags="All"
                 />
@@ -59,7 +60,8 @@
                 WidthRequest="{OnPlatform 1280, Android=720}"
                 HeightRequest="{OnPlatform 720, Android=1280}"
                 AbsoluteLayout.LayoutBounds="0, 0., 1, 1"
-                AbsoluteLayout.LayoutFlags="All"
+                AbsoluteLayout.LayoutFlags="All" 
+                BindingContext="{x:Reference cameraView}"
                 Source="{Binding SnapShot}"
                 />
         </AbsoluteLayout>

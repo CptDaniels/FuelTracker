@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace MauiOcr.Services
 {
-    public interface IStringService
+    public interface IImagePass
     {
-        string FilePath { get; set; }
-    }
-
-    public class StringService : IStringService
-    {
-        public string FilePath { get; set; }
+         void PassImage(byte[] image);
     }
 }

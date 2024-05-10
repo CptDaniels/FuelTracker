@@ -9,11 +9,9 @@ namespace MauiOcr.ViewModel
 {
     public partial class MainViewModel : ObservableObject
     {
-        //private readonly IStringService _stringService;
-        public MainViewModel(ITesseract tesseract/*, IStringService stringService*/)
+        public MainViewModel(ITesseract tesseract)
         {
             Tesseract = tesseract;
-            //_stringService = stringService;
         }
         ITesseract Tesseract { get; }    
 
