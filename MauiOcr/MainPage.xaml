@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             xmlns:ViewModel="clr-namespace:MauiOcr.ViewModel"
+             x:Class="MauiOcr.MainPage"
+             >
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25"
+            VerticalOptions="Fill"
+            HorizontalOptions="Fill">
+            
+
+            <Label
+                x:Name="confidenceLabel"
+                Text="{Binding Conf, StringFormat='Confidence: {0}'}"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1"
+                />
+
+            <Label
+                x:Name="resultLabel"
+                Text="{Binding Output}"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+
+            <Button
+                x:Name="Ocr"
+                Text="Click me" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding GetTextCommand}"
+                HorizontalOptions="Fill" />
+            <Button
+                x:Name="Navigate"
+                Text="Camera" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding NavigateCommand}"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

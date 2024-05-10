@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MauiOcr.SelectPage"
+             xmlns:local="clr-namespace:MauiOcr.ViewModel"
+             Title="SelectPage">
+    <!--<VerticalStackLayout
+        VerticalOptions="Fill"
+        HorizontalOptions="Fill"
+        >
+        <cv:CameraView x:Name="CameraView" WidthRequest="400" HeightRequest="400"
+                    CamerasLoaded="CameraView_CamerasLoaded"/>
+        <Label>Nakieruj na ilosc paliwa na paragonie</Label>
+
+        <Button
+            x:Name="Picture"
+            Text="Zrób zdjecie" 
+            Clicked="PictureTaken"
+            HorizontalOptions="Fill" />
+        <Image
+            x:Name="Image"
+            WidthRequest="200"
+            HeightRequest="200"
+            />
+    </VerticalStackLayout>-->
+         <ContentPage.BindingContext>
+            <local:SelectViewModel />
+        </ContentPage.BindingContext>
+        <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <OnPlatform x:TypeArguments="View">
+            </OnPlatform>
+            <cv:CameraView x:Name="cameraView" WidthRequest="{OnPlatform 1280, Android=720}" 
+                    HeightRequest="{OnPlatform 720, Android=1280}"
+                    CamerasLoaded="CameraView_CamerasLoaded"
+                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Margin="5"
+                           />
+
+            <BoxView AbsoluteLayout.LayoutBounds="0, 0, 0.5, 0.5"
+                    Color="Blue"
+                    Opacity="0.4"
+                    HeightRequest="50"
+                    WidthRequest="100"
+                    AbsoluteLayout.LayoutFlags="All" />
+            <Button
+                x:Name="Picture"
+                Text="Zrób zdjecie" 
+                Clicked="PictureTaken"
+                HeightRequest="50"
+                WidthRequest="100"
+                AbsoluteLayout.LayoutBounds="0.5, 0.9, 1, 1"
+                AbsoluteLayout.LayoutFlags="All"
+                />
+            <Image
+                x:Name="Image"
+                WidthRequest="{OnPlatform 1280, Android=720}"
+                HeightRequest="{OnPlatform 720, Android=1280}"
+                AbsoluteLayout.LayoutBounds="0, 0., 1, 1"
+                AbsoluteLayout.LayoutFlags="All"
+                Source="{Binding SnapShot}"
+                />
+        </AbsoluteLayout>
+    
+        
+</ContentPage>
