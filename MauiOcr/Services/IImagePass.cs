@@ -8,6 +8,10 @@ namespace MauiOcr.Services
 {
     public interface IImagePass
     {
-         void PassImage(byte[] image);
+         byte[] ImageBytes { get; set; }
+    }
+    public class ImagePass : IImagePass
+    {
+        public byte[] ImageBytes { get; set; }
     }
 }

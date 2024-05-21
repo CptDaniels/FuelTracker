@@ -59,17 +59,18 @@
 	<ItemGroup>
 		<PackageReference Include="Camera.MAUI" Version="1.5.1" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="4.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.21" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.21" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.21" />
-		<PackageReference Include="Microsoft.Maui.Graphics" Version="8.0.21" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.40" />
+		<PackageReference Include="Microsoft.Maui.Graphics" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="8.0.21" />
 		<PackageReference Include="SkiaSharp" Version="2.88.8" />
 		<PackageReference Include="SkiaSharp.Views" Version="2.88.8" />
 		<PackageReference Include="System.ObjectModel" Version="4.3.0" />
-		<PackageReference Include="TesseractOcrMaui" Version="1.1.6" />
+		<PackageReference Include="TesseractOcrMaui" Version="1.2.0" />
 	</ItemGroup>
 
 

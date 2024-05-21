@@ -2,6 +2,7 @@
 using TesseractOcrMaui;
 using Camera.MAUI;
 using MauiOcr.ViewModel;
+using MauiOcr.Services;
 using CommunityToolkit.Maui;
 
 namespace MauiOcr
@@ -32,8 +33,9 @@ namespace MauiOcr
                 // must have matching files in Resources/Raw folder
                 //files.AddFile("eng.traineddata");
                 files.AddFile("pol.traineddata");
-                files.AddFile("osd.traineddata");
+                //files.AddFile("osd.traineddata");
             });
+            builder.Services.AddSingleton<IImagePass, ImagePass>();
             // Inject main page, so services are injected to its constructor
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();

@@ -6,65 +6,46 @@
              x:Class="MauiOcr.SelectPage"
              xmlns:local="clr-namespace:MauiOcr.ViewModel"
              Title="SelectPage">
-    <!--<VerticalStackLayout
-        VerticalOptions="Fill"
-        HorizontalOptions="Fill"
-        >
-        <cv:CameraView x:Name="CameraView" WidthRequest="400" HeightRequest="400"
-                    CamerasLoaded="CameraView_CamerasLoaded"/>
-        <Label>Nakieruj na ilosc paliwa na paragonie</Label>
-
-        <Button
-            x:Name="Picture"
-            Text="Zrób zdjecie" 
-            Clicked="PictureTaken"
-            HorizontalOptions="Fill" />
-        <Image
-            x:Name="Image"
-            WidthRequest="200"
-            HeightRequest="200"
-            />
-    </VerticalStackLayout>-->
         <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <OnPlatform x:TypeArguments="View">
             </OnPlatform>
-            <!--<cv:CameraView x:Name="cameraView2" WidthRequest="{OnPlatform 1280, Android=720}" 
-                    HeightRequest="{OnPlatform 720, Android=1280}"
-                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                    AbsoluteLayout.LayoutFlags="All"
-                    Margin="5"
-                           />-->
             <cv:CameraView x:Name="cameraView" WidthRequest="{OnPlatform 1280, Android=720}" 
                     HeightRequest="{OnPlatform 720, Android=1280}"
                     Cameras="{Binding Cameras, Mode=OneWayToSource}" Camera="{Binding Camera}" AutoStartPreview="{Binding AutoStartPreview}" NumCamerasDetected="{Binding NumCameras, Mode=OneWayToSource}"
                     AutoSnapShotAsImageSource="True" AutoSnapShotFormat="PNG" TakeAutoSnapShot="{Binding TakeSnapshot}" AutoSnapShotSeconds="{Binding SnapshotSeconds}"
+                    Self="{Binding Self, Mode=OneWayToSource}"
+                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                    AbsoluteLayout.LayoutFlags="All"
                            />
 
-            <BoxView AbsoluteLayout.LayoutBounds="0, 0, 0.5, 0.5"
-                    Color="Blue"
-                    Opacity="0.4"
+            <BoxView AbsoluteLayout.LayoutBounds="0.5, 0.6, 200, 60"
+                    Color="{OnPlatform Gray, Android=Transparent}"
+                    Opacity="0.3"
                     HeightRequest="50"
-                    WidthRequest="100"
-                    AbsoluteLayout.LayoutFlags="All" />
+                    WidthRequest="200"
+                    AbsoluteLayout.LayoutFlags="PositionProportional" />
             <Button
                 x:Name="Picture"
                 Text="Zrób zdjecie" 
                 HeightRequest="50"
                 WidthRequest="100"
                 Command="{Binding ExecuteTakeSnapshotCommand}"
-                AbsoluteLayout.LayoutBounds="0.5, 0.9, 1, 1"
-                AbsoluteLayout.LayoutFlags="All"
+                AbsoluteLayout.LayoutBounds="0.5, 0.9, 100, 50"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
                 />
             <Image
                 x:Name="Image"
                 WidthRequest="{OnPlatform 1280, Android=720}"
                 HeightRequest="{OnPlatform 720, Android=1280}"
-                AbsoluteLayout.LayoutBounds="0, 0., 1, 1"
+                IsVisible="True"
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                 AbsoluteLayout.LayoutFlags="All" 
                 BindingContext="{x:Reference cameraView}"
                 Source="{Binding SnapShot}"
                 />
         </AbsoluteLayout>
-    
+                    <!-- 
+                Command="{Binding TakeSnapshotCmd}"
+                -->
         
 </ContentPage>

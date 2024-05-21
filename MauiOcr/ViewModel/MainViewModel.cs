@@ -9,9 +9,11 @@ namespace MauiOcr.ViewModel
 {
     public partial class MainViewModel : ObservableObject
     {
-        public MainViewModel(ITesseract tesseract)
+        private readonly IImagePass _imagePass;
+        public MainViewModel(ITesseract tesseract,IImagePass imagePass)
         {
             Tesseract = tesseract;
+            _imagePass = imagePass;
         }
         ITesseract Tesseract { get; }    
 
@@ -27,9 +29,8 @@ namespace MauiOcr.ViewModel
         [RelayCommand]
         private async Task GetText()
         {
-            //string pickResult = _stringService.FilePath;
-            var pickResult = await GetUserSelectedImagePath();
-            //var pickResult = SelectPage.FilePath;
+            //var pickResult = await GetUserSelectedImagePath();
+            byte[] pickResult = GetImageBytes();
 
             // null if user cancelled the operation
             if (pickResult is null)
@@ -38,7 +39,7 @@ namespace MauiOcr.ViewModel
             }
             Tesseract.EngineConfiguration = (engine) =>
             {
-                engine.DefaultSegmentationMode = TesseractOcrMaui.Enums.PageSegmentationMode.AutoOsd;
+                engine.DefaultSegmentationMode = TesseractOcrMaui.Enums.PageSegmentationMode.SingleBlock;
                 //engine.SetCharacterWhitelist("0123456789");   // These characters ocr is looking for
                 //engine.SetCharacterBlacklist("abc");        // These characters ocr is not looking for
 
@@ -54,6 +55,10 @@ namespace MauiOcr.ViewModel
                 return;
             }
             Output = result.RecognisedText;
+        }
+        public byte[] GetImageBytes()
+        {
+            return _imagePass.ImageBytes;
         }
 
         private static async Task<string?> GetUserSelectedImagePath()
