@@ -49,7 +49,7 @@ namespace MauiOcr.ViewModel
             MessagingCenter.Subscribe<SelectVinPopupViewModel, string>(this, "VinSelected", (sender, selectedVin) =>
             {
                 Vin = selectedVin;
-                LoadVehicleDetailsAsync();
+                LoadRecord();
             });
             MessagingCenter.Subscribe<AddVinPopupViewModel, string>(this, "FuelRecordAdded", (sender, fuelConsumption) =>
             {
