@@ -12,12 +12,6 @@ namespace MauiOcr
             InitializeComponent();
             BindingContext = vm;  
         }
-        //public void DisplayPopup()
-        //{
-        //    var popup = new CreatePopup();
-
-        //    this.ShowPopup(popup);
-        //}
     }
 
 }

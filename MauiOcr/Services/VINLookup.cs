@@ -47,16 +47,12 @@ namespace MauiOcr.Services
 
             try
             {
-                // Deserialize the JSON string
                 var jsonObject = JsonDocument.Parse(json);
 
-                // Check if the JSON contains "Results" array
                 if (jsonObject.RootElement.TryGetProperty("Results", out JsonElement resultsElement) && resultsElement.ValueKind == JsonValueKind.Array)
                 {
-                    // Iterate through the array and deserialize each object
                     foreach (var result in resultsElement.EnumerateArray())
                     {
-                        // Deserialize the JSON object into VehicleDetails
                         var vehicleDetails = new VehicleDetails
                         {
                             Make = result.GetProperty("Make").GetString(),
@@ -65,14 +61,12 @@ namespace MauiOcr.Services
                             ModelYear = result.GetProperty("ModelYear").GetString()
                         };
 
-                        // Add the deserialized object to the list
                         vehicleDetailsList.Add(vehicleDetails);
                     }
                 }
             }
             catch (JsonException ex)
             {
-                // Handle JSON parsing exception
                 Console.WriteLine($"Error deserializing JSON: {ex.Message}");
             }
 

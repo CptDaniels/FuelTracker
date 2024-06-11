@@ -60,10 +60,6 @@
             <Button Text="Zmień/Dodaj Pojazd" Command="{Binding OpenVinPopupCommand}" />
             <Label x:Name="ConsumptionNewest" Text="{Binding ConsumptionOut, StringFormat='Ostatnie spalanie: {0} l/100km'}" IsVisible="{Binding ConsumptionOut, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" Style="{StaticResource SubHeadline}" SemanticProperties.HeadingLevel="Level2"/>
             <Label x:Name="ConsumptionAverage" Text="{Binding AverageFuelConsumption, StringFormat='Całkowite spalanie: {0} l/100km'}" IsVisible="{Binding AverageFuelConsumption, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" Style="{StaticResource SubHeadline}" SemanticProperties.HeadingLevel="Level2"/>
-            <!--<Entry Placeholder="VIN Number" Text="{Binding Vin}" />
-            <Entry Placeholder="Fuel Amount" Text="{Binding FuelAmount, Converter={StaticResource DoubleToStringConverter}}" Keyboard="Numeric" />
-            <Entry Placeholder="Mileage" Text="{Binding Mileage, Converter={StaticResource DoubleToStringConverter}}" Keyboard="Numeric" />
-            <DatePicker Date="{Binding Date}" />-->
             <Button x:Name="Add" Text="Dodaj Przejazd" Command="{Binding AddVinPopupCommand}" />
             <ListView ItemsSource="{Binding FuelRecords}">
                 <ListView.ItemTemplate>

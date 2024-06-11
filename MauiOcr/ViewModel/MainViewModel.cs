@@ -214,7 +214,6 @@ namespace MauiOcr.ViewModel
             //var pickResult = await GetUserSelectedImagePath();
             byte[] pickResult = GetImageBytes();
 
-            // null if user cancelled the operation
             if (pickResult is null)
             {
                 return;
@@ -226,10 +225,8 @@ namespace MauiOcr.ViewModel
                 //engine.SetCharacterBlacklist("abc");        // These characters ocr is not looking for
 
             };
-            // Recognize image
             var result = await Tesseract.RecognizeTextAsync(pickResult);
 
-            // Show output
             Conf = $"Confidence: {result.Confidence}";
             if (result.NotSuccess())
             {
@@ -241,11 +238,6 @@ namespace MauiOcr.ViewModel
             ImageSource = ImageSource.FromStream(() => new MemoryStream(pickResult));
         }
 
-
-        //public void DisplayPopup()
-        //{
-        //    this.popupService.ShowPopup<CreatePopupViewModel>();
-        //}
         public byte[] GetImageBytes()
         {
             return _imagePass.ImageBytes;

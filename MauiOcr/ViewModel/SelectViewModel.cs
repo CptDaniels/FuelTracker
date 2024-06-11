@@ -95,7 +95,6 @@ namespace MauiOcr.ViewModel
             TakeSnapshot = true;
             OnPropertyChanged(nameof(TakeSnapshot));
             Bitmap = await GetBitmapFromImageSource(SnapSource);
-            //Bytes = await ImageSourceToByteArray(SnapSource);
             var subsetImageData = await GetImageSubsetAsync(Bitmap);     
             SetImageBytes(subsetImageData);
         }
@@ -246,7 +245,7 @@ namespace MauiOcr.ViewModel
                         }
                     }
                     neighbors.Sort();
-                    byte median = neighbors[4]; // Median value in the sorted list of 9 neighbors
+                    byte median = neighbors[4];
                     blurredBitmap.SetPixel(x, y, new SKColor(median, median, median));
                 }
             }
