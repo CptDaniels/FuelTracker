@@ -1,4 +1,5 @@
-﻿using MauiOcr.ViewModel;
+﻿using CommunityToolkit.Maui.Views;
+using MauiOcr.ViewModel;
 using System.Runtime.InteropServices;
 
 namespace MauiOcr
@@ -9,8 +10,14 @@ namespace MauiOcr
         public MainPage(MainViewModel vm)
         {
             InitializeComponent();
-            BindingContext = vm;
+            BindingContext = vm;  
         }
+        //public void DisplayPopup()
+        //{
+        //    var popup = new CreatePopup();
+
+        //    this.ShowPopup(popup);
+        //}
     }
 
 }

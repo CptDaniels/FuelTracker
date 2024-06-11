@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+           x:Class="MauiOcr.AddVinPopup"
+           xmlns:local="clr-namespace:MauiOcr.ViewModel"
+           xmlns:converters="clr-namespace:MauiOcr.Converters"
+           Color="DarkGray"
+           >
+
+    <VerticalStackLayout Padding="10">
+        <Label Text="Add Fuel Record" FontSize="20" HorizontalOptions="Center"/>
+        <Entry Text="{Binding FuelAmount, Converter={StaticResource ZeroToEmptyStringConverter}}" Placeholder="Fuel Amount"/>
+        <Entry Text="{Binding Mileage, Converter={StaticResource ZeroToEmptyStringConverter}}" Placeholder="Mileage"/>
+        <DatePicker Date="{Binding Date}"/>
+        <Button Text="Add Record" Command="{Binding AddRecordCommand}"/>
+    </VerticalStackLayout>
+</toolkit:Popup>
+

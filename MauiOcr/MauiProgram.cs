@@ -36,12 +36,15 @@ namespace MauiOcr
                 //files.AddFile("osd.traineddata");
             });
             builder.Services.AddSingleton<IImagePass, ImagePass>();
-            // Inject main page, so services are injected to its constructor
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
 
             builder.Services.AddTransient<SelectPage>();
             builder.Services.AddTransient<SelectViewModel>();
+            builder.Services.AddTransient<SelectVinPopup>();
+            builder.Services.AddTransient<SelectVinPopupViewModel>();
+            builder.Services.AddTransient<AddVinPopup>();
+            builder.Services.AddTransient<AddVinPopupViewModel>();
 
             return builder.Build();
         }

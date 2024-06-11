@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using SkiaSharp;
 using SkiaSharp.Views;
 using System.Diagnostics;
+using Microsoft.Maui.Controls;
 
 namespace MauiOcr.ViewModel
 {
@@ -37,16 +38,16 @@ namespace MauiOcr.ViewModel
         [ObservableProperty]
         ObservableCollection<CameraInfo> cameras = new();
 
-        [ObservableProperty]
-        public ImageSource snapShot;
+        public bool AutoSnapShotAsImageSource{get;set;} = false;
+        public ImageSource SnapSource {get;set;}
 
         [ObservableProperty]
-        public bool autoSnapShotAsImageSource = true;
+        Stream snapStream;
 
-        public Stream SnapShotStream;
-
-        //[ObservableProperty]
-        public Command TakeSnapshotCmd { get; set; }
+        [ObservableProperty]
+        SKBitmap bitmap;
+        [ObservableProperty]
+        byte[] bytes;
         public int NumCameras
         {
             set
@@ -55,21 +56,10 @@ namespace MauiOcr.ViewModel
                     Camera = Cameras.First();
             }
         }
-        public bool AutoStartPreview { get; set; } = false;
-        public float AutoSnapshotSeconds { get; set; } = 0f;
-        public string Seconds
-        {
-            get => AutoSnapshotSeconds.ToString();
-            set
-            {
-                if (float.TryParse(value, out float seconds))
-                {
-                    AutoSnapshotSeconds = seconds;
-                    OnPropertyChanged(nameof(AutoSnapshotSeconds));
-                }
-            }
-        }
 
+        
+        public bool AutoStartPreview { get; set; } = false;
+        public float SnapshotSeconds { get; set; } = 0f;
 
         private bool takeSnapshot = false;
         public bool TakeSnapshot
@@ -94,62 +84,33 @@ namespace MauiOcr.ViewModel
         }
         public SelectViewModel(IImagePass imagePass)
         {
-            //SnapShot = snapShot;
             _imagePass = imagePass;
-            //TakeSnapshotCmd = new Command( async() =>
-            //{
-            //    TakeSnapshot = false;
-            //    TakeSnapshot = true;
-            //    await Permissions.RequestAsync<Permissions.Camera>();
-            //    await ExecuteTakeSnapshot();
-            //});
-            //OnPropertyChanged(nameof(TakeSnapshotCmd));
         }
-
+        
 
         [RelayCommand]
         private async Task ExecuteTakeSnapshot()
             {
             TakeSnapshot = false;
             TakeSnapshot = true;
-            await Permissions.RequestAsync<Permissions.Camera>();
-            var stream = await Self.TakePhotoAsync();
-            ImageSource imageSource = Self.GetSnapShot();
-            SnapShot = imageSource;
-            //if (stream != null)
-            //{
-            //    var result = ImageSource.FromStream(() => stream);
-            //    SnapShot = result;
-            //}
-            //stream?.Seek(0, SeekOrigin.Begin);
-            
-            var subsetImageData = await GetImageSubsetAsync(SnapShot);
+            OnPropertyChanged(nameof(TakeSnapshot));
+            Bitmap = await GetBitmapFromImageSource(SnapSource);
+            //Bytes = await ImageSourceToByteArray(SnapSource);
+            var subsetImageData = await GetImageSubsetAsync(Bitmap);     
             SetImageBytes(subsetImageData);
         }
         
-        public async Task<byte[]> GetImageSubsetAsync(ImageSource imageSource)
+        public async Task<byte[]> GetImageSubsetAsync(SKBitmap bitmap)
         {
-            if (imageSource == null)
-            {
-                throw new ArgumentNullException(nameof(imageSource));
-            }
 
-            Stream imageStream = await GetStreamFromImageSource(imageSource);
-
-            if (imageStream.CanSeek)
-            {
-                imageStream.Seek(0, SeekOrigin.Begin);
-            }
-
-            using (SKBitmap bitmap = SKBitmap.Decode(imageStream))
             {
                 if (bitmap != null)
                 {
-                    // Original image dimensions
+
                     int originalWidth = bitmap.Width;
                     int originalHeight = bitmap.Height;
 
-                    // Coordinates for the 200x50 box
+
                     int startX = (int)(originalWidth * 0.5) - 100;
                     int startY = (int)(originalHeight * 0.6) - 25;
                     int boxWidth = 200;
@@ -158,10 +119,10 @@ namespace MauiOcr.ViewModel
                     SKRectI subsetRect = new SKRectI(startX, startY, startX + boxWidth, startY + boxHeight);
                     SKBitmap subsetBitmap = new SKBitmap(boxWidth, boxHeight);
 
-                    using (SKCanvas canvas = new SKCanvas(subsetBitmap))
-                    {
-                        canvas.DrawBitmap(bitmap, subsetRect, new SKRect(0, 0, boxWidth, boxHeight));
-                    }
+                    SKCanvas canvas = new SKCanvas(subsetBitmap);
+                    
+                    canvas.DrawBitmap(bitmap, subsetRect, new SKRect(0, 0, boxWidth, boxHeight));
+                    
 
                     SKBitmap grayscaleBitmap = await Task.Run(() => ConvertToGrayscale(subsetBitmap));
                     SKBitmap blurredBitmap = await Task.Run(() => ApplyMedianBlur(grayscaleBitmap));
@@ -176,7 +137,8 @@ namespace MauiOcr.ViewModel
                 }
                 else
                 {
-                    throw new Exception("Failed to decode the image stream.");
+                    throw new Exception("Failed to de" +
+                        "code the image stream.");
                 }
             }
         }
@@ -185,28 +147,65 @@ namespace MauiOcr.ViewModel
             _imagePass.ImageBytes = bytes;
         }
 
-        private async Task<Stream> GetStreamFromImageSource(ImageSource imageSource)
+        private static async Task<SKBitmap> GetBitmapFromImageSource(ImageSource imageSource)
         {
-            if (imageSource is StreamImageSource streamImageSource)
+            if (imageSource == null)
             {
-                return await streamImageSource.Stream(CancellationToken.None);
+                throw new ArgumentNullException(nameof(imageSource));
             }
-            else if (imageSource is FileImageSource fileImageSource)
+
+            Stream imageStream = null;
+            SKBitmap bitmap = null;
+
+            try
             {
-                string filePath = fileImageSource.File;
-                return File.OpenRead(filePath);
-            }
-            else if (imageSource is UriImageSource uriImageSource)
-            {
-                using (var client = new HttpClient())
+                imageStream = await ((StreamImageSource)imageSource).Stream(CancellationToken.None);
+
+                if (imageStream == null)
                 {
-                    return await client.GetStreamAsync(uriImageSource.Uri);
+                    throw new Exception("Failed to get the stream from the ImageSource.");
+                }
+
+                if (imageStream.CanSeek)
+                {
+                    imageStream.Seek(0, SeekOrigin.Begin);
+                }
+
+                // Debugging: Check the length of the stream
+                Debug.WriteLine($"Stream length: {imageStream.Length}");
+
+                // Debugging: Optionally save the stream to a file to inspect it
+                using (var memoryStream = new MemoryStream())
+                {
+                    await imageStream.CopyToAsync(memoryStream);
+                    //File.WriteAllBytes("/path/to/save/stream_content.png", memoryStream.ToArray());
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    bitmap = SKBitmap.Decode(memoryStream);
+                }
+
+                if (bitmap == null)
+                {
+                    throw new Exception("Failed to decode the bitmap from the stream.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                throw new NotSupportedException("ImageSource type not supported.");
+                Debug.WriteLine($"Error in GetBitmapFromImageSource: {ex.Message}");
             }
+            finally
+            {
+                imageStream?.Dispose();
+            }
+
+            return bitmap;
+        }
+        private static async Task<byte[]> ImageSourceToByteArray(ImageSource imgsrc)
+        {
+            Stream stream = await ((StreamImageSource)imgsrc).Stream(CancellationToken.None);
+            byte[] bytesAvailable = new byte[stream.Length];
+            stream.Read(bytesAvailable, 0, bytesAvailable.Length);
+
+            return bytesAvailable;
         }
 
         private SKBitmap ConvertToGrayscale(SKBitmap bitmap)

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "fueltracker-23763",
+  "private_key_id": "962b3d4d72dec217d8d6d9609216e79ae411f16a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC01jHwY2hW0/Q6\nQ4NcaTuXMfXKYACQ1vzRmr5DCwSvqpo/pBbH0K6Yl7TuDsD7ZA5jYXrYUhdy3FkV\nLVVuku/QgWVJQBV4Y0TbPKTuQb+xnC3WwxvfKI2fNs3HSk5qeRpk4J93IaGdxlFm\nyK3CpsjUQUBaIIxJ636yhNnkmUKJB80EZLjC3cwYDeIufENAZNeooCR8ShSIPlpT\nIDndxGocWMcdNTgJh+edn25qb1CrDOgi0RgCmiB5ytaehE/Oqwy/6smYQyl0hbwU\nHxPJGKDOKneWI7GnQBUW21bhU/eGRetAHAWQc7RLwA858B8e3BaexdfT/DI8Rm4x\nls3C3vMrAgMBAAECggEAFWi0Zy1wVAiU20mp5XNkmtekg0M5Xext6FIbIKx5xLhR\nuaNvZP7s5Ljf3T0sQLbi8zC+Y++CwiuZylA10zjxy6wTYIgwjTJSG73YGDL62F1R\nRKHlt1ZBlK4JeloZjYZtMbCG1d+f7CIR+gqxHkszmdloc83IU2oIyRFsYHbP3JFi\nVf5iGuaLadtg2CVHysLX95SXtJhh6QKRG4fnCUV3q3XzI2GcCR3Hg0wi0dfYgcr9\nIDsnKYYVC79e/xJjgrq3xnXmKUqrFxnoOqXOdyjxcYDnTP5U4DNszW3/PyrhlmJ3\n8r3AwMPOvPI4BoGZTz10kTq78n7rub67iXCEkg0QHQKBgQDjZDmSCMsDoFLZlfSO\nbgqrgR8Z+hTTUC+Fh/9rRnVxTzBG/X3fEPQ59qAcoCBsgQO/n2nxvCPLC4Qm+FoM\nHvdW3AyLhQdVC2Hawy19Vpmoqc02hRwZOHJ3py9w6M9j2+buov/SHuf4qLiAW0Q+\nYA0uCfXzQ/tHPh9ITze+AcHzRwKBgQDLlosbgqMt5um24NbZ//JFMbr+Ain0M7bi\ntsf3eJ+TAoBI9PgNhApVdemy2af+Jf57Tl2mjA/YMx6UHe8YxdyCHDCTnOumsA6G\n9spGvSCcuJvZ+mbnoUIyK36hHGrWjEL2nN33vTeRqi4GeTbYsch5tSoVV9ADN2T/\nhx4IxKlK/QKBgQDLF+sreVsJhBo7aGmjBLnW8F587xXGnqmzFAKXJ7khWN7/qMzR\nfO0FEDd1Gbeb8acNcS5I0AcQBNsli0+x3759/8/clRY1aRMfNo/ckIpxUCePeFfe\nVsI2CEahC+6fe/rITSE75Iq/VsJjMiDDrTpYUmEvwxodSWjbRpW8yQkXZQKBgHkN\ncnlRHCXW/3C2EApfnXZ3M3CFaNzDQyNa+1uyZW/MNOssfbHLqTlXezXVJYaAoOhA\nmH7HGUS8YJpBkkFwpMTYbinXTGc4l+q4I14cZp/JRSI/OaDQycN7CThS5VPc4pQw\ngesknz4Fqog+2tXOIB3+Ep/OLuk6rtshREKCbQchAoGBAKaxJ4fEWbtzA11bWmda\n7XsHDFgIN0ixrZI2UwW9r5d2j0oFUa8l0tzdQUDbks9vfTsXzSp55datd+7TzYO3\nV/mjLYwo0d5ZP8eaMKsm2h4FAZVxDMMj+Zabw5OKOyJ/ndxBhtK1rQzbqLMDza/j\nvmfY+mjFBgQCeVZwPGT+2lrJ\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-mq5w1@fueltracker-23763.iam.gserviceaccount.com",
+  "client_id": "101498403771940921610",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-mq5w1%40fueltracker-23763.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

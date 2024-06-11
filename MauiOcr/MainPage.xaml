@@ -3,8 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
              xmlns:ViewModel="clr-namespace:MauiOcr.ViewModel"
+             xmlns:converters="clr-namespace:MauiOcr.Converters"
              x:Class="MauiOcr.MainPage"
              >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
+            <converters:StringIsNotNullOrEmptyConverter x:Key="StringIsNotNullOrEmptyConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout
@@ -12,8 +19,65 @@
             Spacing="25"
             VerticalOptions="Fill"
             HorizontalOptions="Fill">
-            
 
+            <Image Source="{Binding Logo}" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center"/>
+            <Label x:Name="VIN" Text="{Binding Vin}" IsVisible="{Binding Vin, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" Style="{StaticResource Headline}" SemanticProperties.HeadingLevel="Level1"/>
+
+            <Grid Margin="0,10" HorizontalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Grid.Column="0" Margin="0,0,50,0">
+                    <Label Text="Producent" Style="{StaticResource SubHeadline}" SemanticProperties.HeadingLevel="Level2"/>
+                    <Label Text="{Binding ShowMake}" IsVisible="{Binding ShowMake, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" Style="{StaticResource SubHeadline}"/>
+                </StackLayout>
+
+                <StackLayout Grid.Column="1" Margin="0,0,50,0">
+                    <Label Text="Model" Style="{StaticResource SubHeadline}" SemanticProperties.HeadingLevel="Level2"/>
+                    <Label Text="{Binding ShowModel}" IsVisible="{Binding ShowModel, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" Style="{StaticResource SubHeadline}"/>
+                </StackLayout>
+            </Grid>
+
+            <Grid Margin="0,10" HorizontalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Grid.Column="0" Margin="0,0,50,0">
+                    <Label Text="Rodzaj Paliwa" Style="{StaticResource SubHeadline}" SemanticProperties.HeadingLevel="Level2"/>
+                    <Label Text="{Binding ShowFuelType}" IsVisible="{Binding ShowFuelType, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" Style="{StaticResource SubHeadline}"/>
+                </StackLayout>
+
+                <StackLayout Grid.Column="1" Margin="0,0,50,0">
+                    <Label Text="Rok Produkcji" Style="{StaticResource SubHeadline}" SemanticProperties.HeadingLevel="Level2"/>
+                    <Label Text="{Binding ShowModelYear}" IsVisible="{Binding ShowModelYear, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" Style="{StaticResource SubHeadline}"/>
+                </StackLayout>
+            </Grid>
+
+            <Button Text="Zmień/Dodaj Pojazd" Command="{Binding OpenVinPopupCommand}" />
+            <Label x:Name="ConsumptionNewest" Text="{Binding ConsumptionOut, StringFormat='Ostatnie spalanie: {0} l/100km'}" IsVisible="{Binding ConsumptionOut, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" Style="{StaticResource SubHeadline}" SemanticProperties.HeadingLevel="Level2"/>
+            <Label x:Name="ConsumptionAverage" Text="{Binding AverageFuelConsumption, StringFormat='Całkowite spalanie: {0} l/100km'}" IsVisible="{Binding AverageFuelConsumption, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" Style="{StaticResource SubHeadline}" SemanticProperties.HeadingLevel="Level2"/>
+            <!--<Entry Placeholder="VIN Number" Text="{Binding Vin}" />
+            <Entry Placeholder="Fuel Amount" Text="{Binding FuelAmount, Converter={StaticResource DoubleToStringConverter}}" Keyboard="Numeric" />
+            <Entry Placeholder="Mileage" Text="{Binding Mileage, Converter={StaticResource DoubleToStringConverter}}" Keyboard="Numeric" />
+            <DatePicker Date="{Binding Date}" />-->
+            <Button x:Name="Add" Text="Dodaj Przejazd" Command="{Binding AddVinPopupCommand}" />
+            <ListView ItemsSource="{Binding FuelRecords}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding Date}" />
+                                <Label Text="{Binding Mileage, StringFormat='Przebieg: {0} km'}" />
+                                <Label Text="{Binding FuelConsumption, StringFormat='Spalanie: {0} l/100 km'}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Label
                 x:Name="confidenceLabel"
                 Text="{Binding Conf, StringFormat='Confidence: {0}'}"
@@ -40,7 +104,12 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Command="{Binding NavigateCommand}"
                 HorizontalOptions="Fill" />
-        </VerticalStackLayout>
-    </ScrollView>
+            <Image Source="{Binding ImageSource}" 
+               WidthRequest="{OnPlatform 1280, Android=720}" 
+               HeightRequest="{OnPlatform 720, Android=1280}" 
+               AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+               AbsoluteLayout.LayoutFlags="All" />
+            </VerticalStackLayout>
+        </ScrollView>
 
 </ContentPage>

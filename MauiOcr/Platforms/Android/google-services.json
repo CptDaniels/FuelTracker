@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "229740931707",
+    "firebase_url": "https://fueltracker-23763-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "fueltracker-23763",
+    "storage_bucket": "fueltracker-23763.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229740931707:android:73927bfc30543683b8d0de",
+        "android_client_info": {
+          "package_name": "com.capitano.fueltracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjUpmkuwx6BYlVyoNq3AU9gemaTq0h4iQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
